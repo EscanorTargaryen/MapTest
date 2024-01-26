@@ -1,0 +1,6 @@
+main: dev.davidebilardello.MapTest
+name: ${project.name}
+version: ${project.version}
+author: [ EscanorTargaryen ]
+
+api-version: 1.15
