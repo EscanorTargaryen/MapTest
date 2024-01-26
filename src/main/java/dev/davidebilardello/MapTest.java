@@ -39,6 +39,8 @@ public class MapTest extends JavaPlugin implements Listener {
 
     }
 
+
+    // listen for new maps
     @EventHandler
     public void onMapInitialize(MapInitializeEvent e) {
 
@@ -47,7 +49,7 @@ public class MapTest extends JavaPlugin implements Listener {
         mapView.addRenderer(new MapRenderer() {
             @Override
             public void render(MapView map, MapCanvas canvas, Player player) {
-
+                //render all rectangles
                 for (Rect r : rects) {
                     drawRectColor(map, canvas, r.getxPoint1(), r.getxPoint2(), r.getyPoint1(), r.getyPoint2(), r.isPvpEnabled() ? Color.red : Color.green);
 
@@ -63,12 +65,14 @@ public class MapTest extends JavaPlugin implements Listener {
 
     public void drawRectColor(MapView map, MapCanvas canvas, int xStart, int xEnd, int yStart, int yEnd, Color color) {
 
+        //center of the map
         int centerX = map.getCenterX();
         int centerZ = map.getCenterZ();
 
         int startDrawx = 0, startDrawz = 0, endDrawx = 0, endDraz = 0;
 
-
+        //find between the whole map centred in (centerX, centerZ) the starting and ending point of the rect
+        //xx and yy indicate the real point in the map. Map coordinates start from point (0,0) and end in (128, 128)
         for (int x = centerX - 64, xx = 0; x < centerX + 64; x++, xx++) {
             for (int y = centerZ - 64, yy = 0; y < centerZ + 64; y++, yy++) {
                 if (x == xStart) {
@@ -89,7 +93,7 @@ public class MapTest extends JavaPlugin implements Listener {
             }
         }
 
-
+        //draw the rect
         for (int x = Math.min(startDrawx, endDrawx); x < Math.max(startDrawx, endDrawx); x++) {
             for (int y = Math.min(startDrawz, endDraz); y < Math.max(startDrawz, endDraz); y++) {
                 canvas.setPixelColor(x, y, color);
